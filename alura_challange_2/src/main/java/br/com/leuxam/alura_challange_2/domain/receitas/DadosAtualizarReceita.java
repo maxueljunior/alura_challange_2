@@ -7,13 +7,13 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public record DadosCriarReceita(
-		@NotBlank
-		String descricao,
-		@NotNull
-		BigDecimal valor,
-		@NotNull
-		@JsonFormat(pattern = "dd/MM/yyyy")
-		LocalDate data) {
-
+public record DadosAtualizarReceita(
+        @NotBlank
+        String descricao,
+        @NotNull
+        BigDecimal valor,
+        @JsonFormat(pattern = "dd/MM/yyyy")
+        @NotNull
+        LocalDate data
+) {
 }

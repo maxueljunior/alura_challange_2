@@ -1,22 +1,13 @@
 package br.com.leuxam.alura_challange_2.domain.receitas;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity(name = "Receitas")
 @Table(name = "tb_receitas")
@@ -40,6 +31,20 @@ public class Receitas {
 		this.valor = dados.valor();
 		this.data = dados.data();
 	}
+
+    public void atualizarDados(DadosAtualizarReceita dados) {
+		if(dados.descricao() != null){
+			this.descricao = dados.descricao();
+		}
+
+		if(dados.valor() != null){
+			this.valor = dados.valor();
+		}
+
+		if(dados.data() != null){
+			this.data = dados.data();
+		}
+    }
 }
 
 

@@ -1,9 +1,9 @@
 package br.com.leuxam.alura_challange_2.domain.receitas;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public record DadosDetalhamentoReceita(
 		Long id,
