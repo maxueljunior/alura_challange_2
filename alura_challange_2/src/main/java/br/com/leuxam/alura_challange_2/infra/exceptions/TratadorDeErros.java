@@ -21,7 +21,7 @@ public class TratadorDeErros {
 	}
 
 	@ExceptionHandler({EntityNotFoundException.class, NoSuchElementException.class})
-	public ResponseEntity Error404(EntityNotFoundException ex){
+	public ResponseEntity Error404(){
 		return ResponseEntity.notFound().build();
 	}
 

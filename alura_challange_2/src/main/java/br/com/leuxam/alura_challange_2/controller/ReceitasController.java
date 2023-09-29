@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -38,8 +39,9 @@ public class ReceitasController {
 
 	@GetMapping
 	public ResponseEntity<Page<DadosDetalhamentoReceita>> findAll(
-			@PageableDefault(size = 5, sort = { "descricao" }) Pageable pageable) {
-		var receitas = service.findAll(pageable);
+			@PageableDefault(size = 5, sort = { "descricao" }) Pageable pageable,
+			@RequestParam(value = "descricao", defaultValue = "") String descricao) {
+		var receitas = service.findAll(pageable, descricao);
 		return ResponseEntity.ok().body(receitas);
 	}
 
@@ -47,6 +49,15 @@ public class ReceitasController {
 	public ResponseEntity<DadosDetalhamentoReceita> findById(@PathVariable(name = "id") Long id) {
 		var receita = service.findById(id);
 		return ResponseEntity.ok().body(receita);
+	}
+	
+	@GetMapping("/{ano}/{mes}")
+	public ResponseEntity<Page<DadosDetalhamentoReceita>> findAllByMesAndAno(
+			@PathVariable(name = "ano") Integer ano,
+			@PathVariable(name = "mes") Integer mes,
+			@PageableDefault(size = 5, sort = {"descricao"}) Pageable pageable){
+		var receitas = service.findAllByMesAndAno(ano, mes, pageable);
+		return ResponseEntity.ok().body(receitas);
 	}
 
 	@PutMapping("/{id}")
