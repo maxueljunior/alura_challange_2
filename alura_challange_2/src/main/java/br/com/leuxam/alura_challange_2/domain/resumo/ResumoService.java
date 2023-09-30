@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.leuxam.alura_challange_2.domain.ValidacaoException;
 import br.com.leuxam.alura_challange_2.domain.despesas.DespesasRepository;
 import br.com.leuxam.alura_challange_2.domain.receitas.ReceitasRepository;
 
@@ -18,6 +19,8 @@ public class ResumoService {
 	private ReceitasRepository receitasRepository;
 
 	public DetalhamentoResumo calcularResumo(Integer ano, Integer mes) {
+		
+		if(mes > 12 || mes < 1) throw new ValidacaoException("O mês está invalido, porfavor digite um numero de 1 a 12");
 		
 		var totalDespesas = despesasRepository.calculateTotalDespesasByMesAndAno(ano, mes);
 		if(totalDespesas == null) {

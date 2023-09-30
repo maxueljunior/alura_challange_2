@@ -43,6 +43,7 @@ public class DespesasService {
 
 	public Page<DadosDetalhamentoDespesas> findAllByMesAndAno(
 			Integer ano, Integer mes, Pageable pageable) {
+		if(mes > 12 || mes < 1) throw new ValidacaoException("O mês está invalido, porfavor digite um numero de 1 a 12");
 		var despesas = despesasRepository.findAllByMesAndAno(ano, mes, pageable)
 				.map(DadosDetalhamentoDespesas::new);
 		return despesas;
