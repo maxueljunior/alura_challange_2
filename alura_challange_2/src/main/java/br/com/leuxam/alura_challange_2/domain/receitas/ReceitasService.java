@@ -1,7 +1,5 @@
 package br.com.leuxam.alura_challange_2.domain.receitas;
 
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,9 +11,13 @@ import jakarta.transaction.Transactional;
 @Service
 public class ReceitasService {
 	
-	@Autowired
 	private ReceitasRepository receitasRepository;
 	
+	@Autowired
+	public ReceitasService(ReceitasRepository receitasRepository) {
+		this.receitasRepository = receitasRepository;
+	}
+
 	@Transactional
 	public Receitas save(DadosCriarReceita dados) {
 
