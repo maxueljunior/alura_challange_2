@@ -7,14 +7,17 @@ import org.springframework.stereotype.Service;
 
 import br.com.leuxam.alura_challange_2.domain.ValidacaoException;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 
 @Service
 public class DespesasService {
 	
-	@Autowired
 	private DespesasRepository despesasRepository;
 	
+	@Autowired
+	public DespesasService(DespesasRepository despesasRepository) {
+		this.despesasRepository = despesasRepository;
+	}
+
 	@Transactional
 	public DadosDetalhamentoDespesas save(DadosCriarDespesa dados) {
 		var ano = dados.data().getYear();

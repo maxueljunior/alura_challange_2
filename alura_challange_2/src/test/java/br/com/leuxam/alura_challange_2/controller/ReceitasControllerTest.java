@@ -26,6 +26,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -151,6 +153,11 @@ class ReceitasControllerTest {
 		var receita = new Receitas(1L,"desc", new BigDecimal("1000"), data);
 		
 		when(receitasRepository.existeAlgumaReceitasByDescricao("desc", mes, ano)).thenReturn(null);
+		when(receitasRepository.save(any(Receitas.class))).thenAnswer(invocation -> {
+		    Receitas receitaSalva = invocation.getArgument(0);
+		    receitaSalva.setId(1L);
+		    return receitaSalva;
+		});
 		
 		var response = mvc.perform(post("/receitas")
 					.contentType(MediaType.APPLICATION_JSON)
@@ -164,6 +171,7 @@ class ReceitasControllerTest {
 				new DadosDetalhamentoReceita(1L,"desc", new BigDecimal("1000"), LocalDate.now())).getJson();
 		
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+		assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
 	}
 	
 	@Test
