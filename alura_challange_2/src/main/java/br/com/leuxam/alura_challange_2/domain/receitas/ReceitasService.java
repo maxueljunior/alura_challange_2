@@ -57,15 +57,15 @@ public class ReceitasService {
 
 	@Transactional
 	public DadosDetalhamentoReceita update(Long id, DadosAtualizarReceita dados) {
-		var receita = receitasRepository.findById(id).get();
+		var receita = receitasRepository.findById(id);
 		
 		var anoDados = dados.data().getYear();
-		var anoReceita = receita.getData().getYear();
+		var anoReceita = receita.get().getData().getYear();
 		
-		var descReceita = receita.getDescricao();
+		var descReceita = receita.get().getDescricao();
 		var descDados = dados.descricao();
 
-		var mesReceita = receita.getData().getMonthValue();
+		var mesReceita = receita.get().getData().getMonthValue();
 		var mesDados = dados.data().getMonthValue();
 
 		if(mesDados != mesReceita || !descDados.equalsIgnoreCase(descReceita) ||
@@ -78,9 +78,9 @@ public class ReceitasService {
 			}
 		}
 
-		receita.atualizarDados(dados);
+		receita.get().atualizarDados(dados);
 
-		return new DadosDetalhamentoReceita(receita);
+		return new DadosDetalhamentoReceita(receita.get());
 	}
 	
 	@Transactional

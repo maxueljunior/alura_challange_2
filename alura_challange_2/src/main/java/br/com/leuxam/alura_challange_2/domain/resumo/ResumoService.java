@@ -12,11 +12,15 @@ import br.com.leuxam.alura_challange_2.domain.receitas.ReceitasRepository;
 @Service
 public class ResumoService {
 	
-	@Autowired
 	private DespesasRepository despesasRepository;
 	
-	@Autowired
 	private ReceitasRepository receitasRepository;
+	
+	@Autowired
+	public ResumoService(DespesasRepository despesasRepository, ReceitasRepository receitasRepository) {
+		this.despesasRepository = despesasRepository;
+		this.receitasRepository = receitasRepository;
+	}
 
 	public DetalhamentoResumo calcularResumo(Integer ano, Integer mes) {
 		
@@ -34,7 +38,7 @@ public class ResumoService {
 		
 		var totalCategoria = despesasRepository.calculateTotalAllCategorias(ano, mes);
 		
-		var saldoFinal = totalReceitas.subtract(totalDespesas);
+		var saldoFinal = totalDespesas.subtract(totalReceitas);
 		
 		return new DetalhamentoResumo(totalReceitas,
 				totalDespesas, saldoFinal, totalCategoria);
