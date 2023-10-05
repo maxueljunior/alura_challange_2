@@ -18,4 +18,7 @@ public record DadosAtualizarDespesa(
 		LocalDate data,
 		Categoria categoria) {
 	
+	public DadosAtualizarDespesa(Despesas despesa) {
+		this(despesa.getDescricao(), despesa.getValor(), despesa.getData(), despesa.getCategoria());
+	}
 }

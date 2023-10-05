@@ -55,15 +55,15 @@ public class DespesasService {
 	@Transactional
 	public DadosDetalhamentoDespesas update(Long id, DadosAtualizarDespesa dados) {
 		
-		var despesa = despesasRepository.findById(id).get();
+		var despesa = despesasRepository.findById(id);
 		
-		var anoDespesa = despesa.getData().getYear();
+		var anoDespesa = despesa.get().getData().getYear();
 		var anoDados = dados.data().getYear();
 		
-		var descDespesa = despesa.getDescricao();
+		var descDespesa = despesa.get().getDescricao();
 		var descDados = dados.descricao();
 		
-		var mesDespesa = despesa.getData().getMonthValue();
+		var mesDespesa = despesa.get().getData().getMonthValue();
 		var mesDados = dados.data().getMonthValue();
 		
 		if(mesDespesa != mesDados || !descDados.equalsIgnoreCase(descDespesa) ||
@@ -76,9 +76,9 @@ public class DespesasService {
 			}
 		}
 		
-		despesa.atualizarDados(dados);
+		despesa.get().atualizarDados(dados);
 		
-		return new DadosDetalhamentoDespesas(despesa);
+		return new DadosDetalhamentoDespesas(despesa.get());
 	}
 	
 	@Transactional
