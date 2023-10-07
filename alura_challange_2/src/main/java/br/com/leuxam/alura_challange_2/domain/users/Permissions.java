@@ -36,4 +36,11 @@ public class Permissions implements GrantedAuthority{
 	public String getAuthority() {
 		return descricao;
 	}
+
+	@Override
+	public String toString() {
+		return "Permissions [id=" + id + ", descricao=" + descricao + ", usuarios=" + usuarios + "]";
+	}
+	
+	
 }
